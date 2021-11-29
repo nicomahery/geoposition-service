@@ -21,6 +21,15 @@ public class TrackedEntity implements Serializable {
     public TrackedEntity() {
     }
 
+    @Override
+    public String toString() {
+        return "TrackedEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
+
     public long getId() {
         return id;
     }

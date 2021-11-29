@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Repository
 public interface LocationRepository extends JpaRepository<Location, Long> {
-    Optional<Location> findByTrackedEntity(TrackedEntity trackedEntity);
+    List<Location> findAllByTrackedEntity(TrackedEntity trackedEntity);
     @Query(value = "select l from #{#entityName} l where ST_Within(l.coordinates, :area) = TRUE")
     List<Location> findAllInArea(Geometry area);
     Optional<Location> findTopByTrackedEntityOrderByDateDesc(TrackedEntity trackedEntity);

@@ -1,11 +1,11 @@
 package com.hiapoe.geopositionservice.entities;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.CreationTimestamp;
 import org.locationtech.jts.geom.Point;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -13,14 +13,13 @@ public class Location implements Serializable {
     @Id
     @GeneratedValue
     private long id;
-    @NotNull
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSSZ")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
+    @CreationTimestamp
+    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SS")
+    //@Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime date;
     @Column(columnDefinition = "POINT")
     private Point coordinates;
-    @ManyToOne()
-    @NotNull
+    @ManyToOne(optional = false)
     private TrackedEntity trackedEntity;
 
     public Location() {
@@ -34,11 +33,11 @@ public class Location implements Serializable {
         this.id = id;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

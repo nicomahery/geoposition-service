@@ -1,6 +1,7 @@
 package com.hiapoe.geopositionservice.services;
 
 import com.hiapoe.geopositionservice.entities.Location;
+import com.hiapoe.geopositionservice.entities.TrackedEntity;
 import com.hiapoe.geopositionservice.repositories.LocationRepository;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
@@ -41,5 +42,25 @@ public class LocationService {
         shapeFactory.setHeight(diameterInMeters / (LONGITUDE_FACTOR_KM * Math.cos(Math.toRadians(latitude)) / 360));
         Polygon circle = shapeFactory.createEllipse();
         return this.findAllInArea(circle);
+    }
+
+    public List<Location> findAllByTrackedEntity(TrackedEntity trackedEntity) {
+        return this.locationRepository.findAllByTrackedEntity(trackedEntity);
+    }
+
+    public Optional<Location> findTopByTrackedEntityOrderByDateDesc(TrackedEntity trackedEntity) {
+        return this.locationRepository.findTopByTrackedEntityOrderByDateDesc(trackedEntity);
+    }
+
+    public Location save(Location location) {
+        return this.locationRepository.save(location);
+    }
+
+    public List<Location> saveAll(Iterable<Location> locationIterable) {
+        return this.locationRepository.saveAll(locationIterable);
+    }
+
+    public List<Location> findAll() {
+        return this.locationRepository.findAll();
     }
 }

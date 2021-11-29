@@ -2,6 +2,7 @@ package com.hiapoe.geopositionservice.services;
 
 import com.hiapoe.geopositionservice.entities.TrackedEntity;
 import com.hiapoe.geopositionservice.repositories.TrackedEntityRepository;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
