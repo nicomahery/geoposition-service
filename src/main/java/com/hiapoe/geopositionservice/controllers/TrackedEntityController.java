@@ -1,26 +1,32 @@
 package com.hiapoe.geopositionservice.controllers;
 
 import com.hiapoe.geopositionservice.entities.TrackedEntity;
+import com.hiapoe.geopositionservice.hateoas.TrackedEntityModelAssembler;
 import com.hiapoe.geopositionservice.services.TrackedEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 @RequestMapping(value = "/custom-api/trackedEntities")
 @RestController
 public class TrackedEntityController {
 
     final private TrackedEntityService trackedEntityService;
-    final private ServletContext servletContext;
+    final private TrackedEntityModelAssembler trackedEntityModelAssembler;
 
     @Autowired
-    public TrackedEntityController(TrackedEntityService trackedEntityService, ServletContext servletContext) {
+    public TrackedEntityController(TrackedEntityService trackedEntityService,
+                                   TrackedEntityModelAssembler trackedEntityModelAssembler) {
         this.trackedEntityService = trackedEntityService;
-        this.servletContext = servletContext;
+        this.trackedEntityModelAssembler = trackedEntityModelAssembler;
     }
 
-
+    @GetMapping(value = "/")
+    public CollectionModel<EntityModel<TrackedEntity>> findAll(HttpServletRequest request) {
+        return this.trackedEntityModelAssembler.toCollectionModel(this.trackedEntityService.findAll(),
+                request.getRequestURL().toString());
+    }
 }

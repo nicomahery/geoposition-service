@@ -1,5 +1,6 @@
 package com.hiapoe.geopositionservice.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.CreationTimestamp;
 import org.locationtech.jts.geom.Point;
 
@@ -14,7 +15,7 @@ public class Location implements Serializable {
     @GeneratedValue
     private long id;
     @CreationTimestamp
-    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SS")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SS")
     //@Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime date;
     @Column(columnDefinition = "POINT")

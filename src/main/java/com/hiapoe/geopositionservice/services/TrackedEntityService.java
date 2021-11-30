@@ -2,7 +2,6 @@ package com.hiapoe.geopositionservice.services;
 
 import com.hiapoe.geopositionservice.entities.TrackedEntity;
 import com.hiapoe.geopositionservice.repositories.TrackedEntityRepository;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +24,10 @@ public class TrackedEntityService {
 
     public Optional<TrackedEntity> findById(long id) {
         return this.trackedEntityRepository.findById(id);
+    }
+
+    public List<TrackedEntity> findAll() {
+        return this.trackedEntityRepository.findAll();
     }
 
     public TrackedEntity save(TrackedEntity trackedEntity) {
